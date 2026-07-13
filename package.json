@@ -1,6 +1,6 @@
 {
   "name": "@aarmos/bundle-schema",
-  "version": "0.3.0-rc.2",
+  "version": "0.3.0",
   "description": "Frozen schema for the Aarmos Bundle (aarmos.bundle/1) — the signed, self-contained container of AVAR receipts, policy snapshots, egress ledger rows, and guardrail events used by `aarmos incident export` and `avar verify`.",
   "type": "module",
   "main": "./dist/index.js",
