@@ -1,0 +1,50 @@
+{
+  "$schema": "https://aarmos.io/schemas/bundle/v1/redaction.schema.json",
+  "id": "aarmos.bundle.v1",
+  "description": "Allowlist applied to every record before it enters an Aarmos Bundle. Any field not listed here is stripped. This is an allowlist, not a denylist — the safe default is drop.",
+  "receipts": {
+    "allow": [
+      "id", "prev", "ts",
+      "actor.id", "actor.role", "actor.kid",
+      "action.verb", "action.resource", "action.toolId", "action.protocol",
+      "decision", "denyReason",
+      "policy.hash", "policy.rulesetVersion",
+      "attenuation.parentId", "attenuation.grantId",
+      "metering.tokensIn", "metering.tokensOut", "metering.costUsd", "metering.durationMs",
+      "obligations",
+      "sig",
+      "prevHash", "entryHash", "steps",
+      "prev_hash", "hash", "op", "status", "error"
+    ],
+    "drop": [
+      "prompt", "prompt.*",
+      "input", "input.*",
+      "output", "output.*",
+      "payload", "payload.*",
+      "request.body", "response.body",
+      "user.email", "user.name", "user.pii.*",
+      "secret", "secret.*", "token", "apiKey"
+    ]
+  },
+  "policies": {
+    "allow": ["*"],
+    "notes": "Compiled policy YAML is safe by construction — no runtime data."
+  },
+  "egress": {
+    "allow": [
+      "ts", "toolId", "protocol", "fqdn", "method",
+      "reqBytes", "respBytes", "status",
+      "receiptId", "unattributed"
+    ],
+    "drop": [
+      "url.query", "url.path", "headers.*", "body", "body.*", "response.*"
+    ]
+  },
+  "guardrails": {
+    "allow": [
+      "ts", "kind", "sessionId", "agentId",
+      "limit", "observed", "action"
+    ],
+    "drop": ["message", "context.*", "payload.*"]
+  }
+}

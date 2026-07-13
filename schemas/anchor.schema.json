@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aarmos.io/schemas/bundle/v1/anchor.schema.json",
+  "title": "Aarmos Bundle Anchor (optional)",
+  "description": "anchor.json inside an aarmos.bundle/1 when --anchor rekor was used at export time. Digest-only; no bundle contents are anchored.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["log", "logId", "logIndex", "integratedTime", "digest", "inclusionProof"],
+  "properties": {
+    "log": { "const": "rekor" },
+    "logId": { "type": "string", "minLength": 1 },
+    "logIndex": { "type": "integer", "minimum": 0 },
+    "integratedTime": { "type": "integer", "minimum": 0 },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Bundle contentDigest that was anchored."
+    },
+    "inclusionProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["logIndex", "treeSize", "rootHash", "hashes", "body"],
+      "properties": {
+        "logIndex": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Within-tree leaf index used to walk the RFC 6962 inclusion proof. May differ from the top-level logIndex on sharded logs."
+        },
+        "treeSize": { "type": "integer", "minimum": 1 },
+        "rootHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "hashes": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        },
+        "body": {
+          "type": "string",
+          "description": "Base64 canonicalized Rekor entry — the leaf-data whose SHA-256(0x00||body) is the RFC 6962 leaf hash. Stored so `avar verify` can recompute the leaf offline."
+        }
+      }
+    }
+  }
+}

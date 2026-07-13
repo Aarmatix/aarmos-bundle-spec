@@ -1,0 +1,13 @@
+# incident-demo synthetic policy — matches the receipts in this bundle.
+schema: aarmos.policy/1
+rulesetVersion: 1.0.0
+rules:
+  - id: no-egress-outside-tenant
+    when: { action.verb: [communicate, transact], target.tenant: { not: acme-demo } }
+    decision: deny
+  - id: allow-read-ticket
+    when: { action.verb: read, action.resource: ticket }
+    decision: allow
+  - id: allow-attenuated-notify
+    when: { action.verb: communicate, action.toolId: slack.chat.postMessage, attenuation.parentId: { present: true } }
+    decision: allow

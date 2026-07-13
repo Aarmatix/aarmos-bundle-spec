@@ -1,0 +1,26 @@
+{
+  "schema": "aarmos.matrix/1",
+  "actions": [
+    "read",
+    "write",
+    "delete",
+    "communicate",
+    "transact",
+    "execute",
+    "control",
+    "observe"
+  ],
+  "resources": [
+    "file",
+    "record",
+    "ticket",
+    "chat",
+    "email",
+    "payment",
+    "process",
+    "identity"
+  ],
+  "defaults": {
+    "decision": "deny"
+  }
+}

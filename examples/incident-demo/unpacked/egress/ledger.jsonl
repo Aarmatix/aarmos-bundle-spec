@@ -1,0 +1,2 @@
+{"ts":"2026-07-13T00:05:12.100Z","toolId":"zendesk.tickets.get","protocol":"openapi","fqdn":"acme.zendesk.com","method":"GET","reqBytes":412,"respBytes":5120,"status":200,"receiptId":"rcp_01"}
+{"ts":"2026-07-13T00:07:44.180Z","toolId":"slack.chat.postMessage","protocol":"openapi","fqdn":"slack.com","method":"POST","reqBytes":640,"respBytes":220,"status":200,"receiptId":"rcp_03"}

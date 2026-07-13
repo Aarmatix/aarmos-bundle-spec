@@ -1,0 +1,61 @@
+{
+  "schema": "aarmos.bundle/1",
+  "bundleId": "bnd_demo000000000000000000",
+  "workspace": {
+    "idHash": "sha256:63c44c3503570509cc8c9eb42274335468d7206d62cd29b49de1d59ba3f310c1",
+    "publicKey": {
+      "alg": "Ed25519",
+      "kid": "kid_demo_fixture_v1",
+      "key": "LaxAIti8PDnoZojIQMBT7m4IWijzifR161DTaTmISiI"
+    }
+  },
+  "tenant": "acme-demo",
+  "window": {
+    "from": "2026-07-13T00:00:00.000Z",
+    "to": "2026-07-13T01:00:00.000Z"
+  },
+  "producer": {
+    "name": "aarmos-cli",
+    "version": "0.10.0"
+  },
+  "contents": {
+    "receipts": [
+      {
+        "path": "receipts/chain-0001.jsonl",
+        "sha256": "sha256:90acd8abf8221b5d3df6379337990aa5c445d71f0455b2e699df1e060718c1d7",
+        "bytes": 1371
+      }
+    ],
+    "policies": [
+      {
+        "path": "policies/matrix.json",
+        "sha256": "sha256:fd50429dc82e3b5a12bb55fa049aa47fb05ce8359d6dec3244f0d79e1760fa6f",
+        "bytes": 348
+      },
+      {
+        "path": "policies/policy-0001.yaml",
+        "sha256": "sha256:6a8d9585c5121d0f19ea7ed678ec242e0b350c54d985f73d2d59efb7f4f78030",
+        "bytes": 539
+      }
+    ],
+    "egress": [
+      {
+        "path": "egress/ledger.jsonl",
+        "sha256": "sha256:55ae648f3086de2f7237fa515e9d7c58dbe2933844645c8c84640f820a8f34f9",
+        "bytes": 382
+      }
+    ],
+    "guardrails": [
+      {
+        "path": "guardrails/events.jsonl",
+        "sha256": "sha256:749bcf5102ef02156157720362b34d51105c99f4270c17709ab5a720ee7c3a6b",
+        "bytes": 146
+      }
+    ]
+  },
+  "contentDigest": "sha256:387fcc20a64726ebe603f2dd9f67c51e74378b872cd093b280410a407f9b1689",
+  "redaction": {
+    "allowlist": "aarmos.bundle.v1",
+    "sha256": "sha256:0e8345fbf4442a7c81ad0a6b9b5d3d0832ea6196bc680963b39581034c3ce6f4"
+  }
+}
