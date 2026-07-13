@@ -34,6 +34,19 @@
     "schema"
   ],
   "license": "Apache-2.0",
+  "author": "Aarmatix LLC",
+  "homepage": "https://github.com/Aarmatix/aarmos-bundle-spec",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aarmatix/aarmos-bundle-spec.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aarmatix/aarmos-bundle-spec/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  },
   "devDependencies": {
     "tsup": "^8.5.1",
     "typescript": "^5.6.2"
