@@ -1,24 +1,27 @@
 # Sync policy: this spec repo ↔ Aarmos monorepo working copy
 
-The canonical home of the **aarmos.bundle/1** schema is this repository.
-A working copy lives inside the Aarmos product monorepo at
-`packages/bundle-schema/` so the PWA, CLI, and bridge can iterate against
-unreleased schema changes without a two-repo dance.
+The **aarmos.bundle/1** contract is co-maintained between this public spec
+repo and the Aarmos monorepo working copy at `packages/bundle-schema/`.
+
+## Policy (v2, 2026-07-15)
+
+**Monorepo is the source of truth.** The runtime, PWA, and CLI iterate
+against the working copy every day, so keeping the spec repo as a
+separate upstream created chronic drift. This repo is now an
+**auto-mirrored published view** of the monorepo working copy plus an
+**external-contributor entry point**.
 
 ## Rules
 
-1. **This repo is upstream.** Every change to `schemas/`, `src/`,
-   `README.md`, or `package.json` must land here first (or in the
-   same PR window as the monorepo change).
-2. **npm publishes from this repo.** `npm publish` for
-   `@aarmos/bundle-schema@X.Y.Z` is cut from a tagged commit here, never from
-   the monorepo working copy.
-3. **Version bumps are coordinated.** Bumping `version` in
-   `package.json` is only allowed once the same bump has been pushed
-   here and tagged.
-4. **Third-party changes upstream first.** External contributors PR to
-   this repo. Merged commits are mirrored into the monorepo working
-   copy in the next monorepo change.
-5. **Divergence audit.** Any release checklist for `@aarmos/bundle-schema`
-   includes a diff between this repo and the monorepo working copy.
-   A non-empty diff blocks the release.
+1. **Monorepo publishes; this repo mirrors.** `npm publish` for
+   `@aarmos/bundle-schema@X.Y.Z` runs from the monorepo and a `postpublish`
+   hook (`scripts/mirror-schema-specs.mjs`) pushes the exact
+   published tree here in the same commit.
+2. **Every published version is tagged here** as `bundle-schema-vX.Y.Z`
+   so registry provenance and this repo agree byte-for-byte.
+3. **External contributors PR to this repo.** Merged commits are
+   cherry-picked into the monorepo working copy within one release
+   cycle. The CI drift gate in the monorepo blocks any release where
+   the two have diverged.
+4. **Direct commits to `main` here are auto-overwritten** by the next
+   mirror push. Use PRs against tagged commits, not `main` HEAD.
