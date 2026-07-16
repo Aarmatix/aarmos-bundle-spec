@@ -16,7 +16,7 @@ consumer (auditor, insurer, SOC, legal) that has the `avar` binary.
 manifest.json         # bundle id, workspace (hashed), window, versions, content digest
 receipts/*.jsonl      # AVAR v2 receipt chains, ordered, hash-linked
 policies/*.yaml       # ASP policy snapshots active during the window
-policies/matrix.json  # compiled 8x8 matrix + D1 attenuation graph
+policies/matrix.json  # compiled action×resource matrix + attenuation graph
 egress/ledger.jsonl   # connector-egress rows (toolId, protocol, unattributed)
 guardrails/*.jsonl    # repeat-guard, call-ceiling, cost-ceiling events
 anchor.json           # OPTIONAL — Rekor inclusion proof when --anchor rekor
