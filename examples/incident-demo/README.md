@@ -85,5 +85,5 @@ it against `@aarmos/bundle-schema`.
 - Bundle schema: [`packages/bundle-schema/schemas/manifest.schema.json`](../../schemas/manifest.schema.json)
 - Redaction allowlist: [`packages/bundle-schema/redaction/aarmos.bundle.v1.json`](../../redaction/aarmos.bundle.v1.json)
 - Canonical paths / types: [`packages/bundle-schema/src/index.ts`](../../src/index.ts)
-- Verifier: [`packages/avar-core/src/bundle.ts`](../../../avar-core/src/bundle.ts)
-- Producer: [`packages/cli/src/lib/bundle.ts`](../../../cli/src/lib/bundle.ts)
+- Verifier: [`avar verify`](https://github.com/Aarmatix/avar) (standalone binary) or [`@aarmos/cli`](https://www.npmjs.com/package/@aarmos/cli)
+- Producer: `aarmos incident export` — shipped in [`@aarmos/cli`](https://www.npmjs.com/package/@aarmos/cli)

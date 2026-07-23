@@ -8,7 +8,7 @@ consumer (auditor, insurer, SOC, legal) that has the `avar` binary.
 - Schema id: `aarmos.bundle/1`
 - Container: `.aarmos` = ZIP archive
 - Producer: `aarmos incident export` (in `@aarmos/cli`)
-- Consumer: `avar verify <bundle>` (in `@aarmos/avar-core`)
+- Consumer: `avar verify <bundle>` — standalone [`avar`](https://github.com/Aarmatix/avar) binary (`brew install aarmatix/tap/avar`) or [`@aarmos/cli`](https://www.npmjs.com/package/@aarmos/cli); chain math from [`@avar-standard/core`](https://www.npmjs.com/package/@avar-standard/core)
 
 ## Layout inside a `.aarmos` file
 
