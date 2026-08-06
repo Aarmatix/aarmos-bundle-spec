@@ -1,7 +1,7 @@
 {
   "name": "@aarmos/bundle-schema",
   "version": "0.3.0",
-  "description": "Frozen schema for the Aarmos Bundle (aarmos.bundle/1) — the signed, self-contained container of AVAR receipts, policy snapshots, egress ledger rows, and guardrail events used by `aarmos incident export` and `avar verify`.",
+  "description": "Frozen schema for the Aarmos Bundle (aarmos.bundle/1) \u2014 the signed, self-contained container of AVAR receipts, policy snapshots, egress ledger rows, and guardrail events used by `aarmos incident export` and `avar verify`.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build && node ../../scripts/check-npm-packument.mjs && node ../../scripts/check-npm-tarball.mjs && node ../../scripts/check-pack-import.mjs"
   },
   "keywords": [
     "aarmos",

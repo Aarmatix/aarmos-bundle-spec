@@ -39,7 +39,7 @@ export interface BundleManifest {
     policies: BundleFileEntry[];
     egress: BundleFileEntry[];
     guardrails: BundleFileEntry[];
-    /** Phase 2D — Scoped Tool Invites and their redemption records. */
+    /** — Scoped Tool Invites and their redemption records. */
     invites?: BundleFileEntry[];
     anchor?: BundleAnchorEntry;
   };
@@ -66,7 +66,7 @@ export interface BundleAnchor {
 }
 
 /**
- * Phase 2D — record of a single invite redemption. Bundle verifiers
+ * — record of a single invite redemption. Bundle verifiers
  * cross-check that every redemption references an invite in `invites/`
  * and that every AVAR receipt tagged `via_invite` links back here.
  */
@@ -84,7 +84,7 @@ export interface InviteRedemption {
 
 /**
  * Canonical paths inside a .aarmos zip. Ordering matters for
- * contentDigest reproducibility — see docs/roadmap/moat-layers.md §0.
+ * contentDigest reproducibility — see internal design notes
  */
 export const BUNDLE_PATHS = {
   manifest: "manifest.json",

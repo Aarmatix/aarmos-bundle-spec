@@ -8,19 +8,19 @@ consumer (auditor, insurer, SOC, legal) that has the `avar` binary.
 - Schema id: `aarmos.bundle/1`
 - Container: `.aarmos` = ZIP archive
 - Producer: `aarmos incident export` (in `@aarmos/cli`)
-- Consumer: `avar verify <bundle>` — standalone [`avar`](https://github.com/Aarmatix/avar) binary (`brew install aarmatix/tap/avar`) or [`@aarmos/cli`](https://www.npmjs.com/package/@aarmos/cli); chain math from [`@avar-standard/core`](https://www.npmjs.com/package/@avar-standard/core)
+- Consumer: `avar verify <bundle>` (in `@aarmos/avar-core`)
 
 ## Layout inside a `.aarmos` file
 
 ```
-manifest.json         # bundle id, workspace (hashed), window, versions, content digest
-receipts/*.jsonl      # AVAR v2 receipt chains, ordered, hash-linked
-policies/*.yaml       # ASP policy snapshots active during the window
-policies/matrix.json  # compiled action×resource matrix + attenuation graph
-egress/ledger.jsonl   # connector-egress rows (toolId, protocol, unattributed)
-guardrails/*.jsonl    # repeat-guard, call-ceiling, cost-ceiling events
-anchor.json           # OPTIONAL — Rekor inclusion proof when --anchor rekor
-signatures/manifest.sig  # detached Ed25519 signature over manifest.json
+manifest.json # bundle id, workspace (hashed), window, versions, content digest
+receipts/*.jsonl # AVAR 1.0 receipt chains, ordered, hash-linked
+policies/*.yaml # ASP policy snapshots active during the window
+policies/matrix.json # compiled action×resource matrix + attenuation graph
+egress/ledger.jsonl # connector-egress rows (toolId, protocol, unattributed)
+guardrails/*.jsonl # repeat-guard, call-ceiling, cost-ceiling events
+anchor.json # OPTIONAL — Rekor inclusion proof when --anchor rekor
+signatures/manifest.sig # detached Ed25519 signature over manifest.json
 ```
 
 ## Reproducibility
@@ -43,5 +43,4 @@ payloads, and secret material are never on the list.
 - User PII
 - TLS-decrypted traffic (ever)
 
-See `docs/roadmap/moat-layers.md` §0 and Phase 1 for the source of
-truth.
+

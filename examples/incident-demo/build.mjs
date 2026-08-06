@@ -37,9 +37,16 @@ const BUNDLE_ID = "bnd_demo000000000000000000";
 
 const receipts = [
   {
-    id: "rcp_01", prev: null, ts: "2026-07-13T00:05:12.000Z",
+    id: "rcp_01",
+    prev: null,
+    ts: "2026-07-13T00:05:12.000Z",
     actor: { id: "agent:triage", role: "planner", kid: "kid_demo_0001" },
-    action: { verb: "read", resource: "ticket", toolId: "zendesk.tickets.get", protocol: "openapi" },
+    action: {
+      verb: "read",
+      resource: "ticket",
+      toolId: "zendesk.tickets.get",
+      protocol: "openapi",
+    },
     decision: "allow",
     policy: { hash: "sha256:policy0001", rulesetVersion: "1.0.0" },
     metering: { tokensIn: 812, tokensOut: 214, costUsd: 0.0031, durationMs: 420 },
@@ -47,18 +54,33 @@ const receipts = [
     sig: "demo_sig_01",
   },
   {
-    id: "rcp_02", prev: "rcp_01", ts: "2026-07-13T00:06:03.000Z",
+    id: "rcp_02",
+    prev: "rcp_01",
+    ts: "2026-07-13T00:06:03.000Z",
     actor: { id: "agent:triage", role: "planner", kid: "kid_demo_0001" },
-    action: { verb: "communicate", resource: "ticket", toolId: "zendesk.tickets.reply", protocol: "openapi" },
-    decision: "deny", denyReason: "policy:no-egress-outside-tenant",
+    action: {
+      verb: "communicate",
+      resource: "ticket",
+      toolId: "zendesk.tickets.reply",
+      protocol: "openapi",
+    },
+    decision: "deny",
+    denyReason: "policy:no-egress-outside-tenant",
     policy: { hash: "sha256:policy0001", rulesetVersion: "1.0.0" },
     metering: { tokensIn: 0, tokensOut: 0, costUsd: 0, durationMs: 12 },
     sig: "demo_sig_02",
   },
   {
-    id: "rcp_03", prev: "rcp_02", ts: "2026-07-13T00:07:44.000Z",
+    id: "rcp_03",
+    prev: "rcp_02",
+    ts: "2026-07-13T00:07:44.000Z",
     actor: { id: "agent:notifier", role: "worker", kid: "kid_demo_0002" },
-    action: { verb: "communicate", resource: "chat", toolId: "slack.chat.postMessage", protocol: "openapi" },
+    action: {
+      verb: "communicate",
+      resource: "chat",
+      toolId: "slack.chat.postMessage",
+      protocol: "openapi",
+    },
     decision: "allow",
     policy: { hash: "sha256:policy0001", rulesetVersion: "1.0.0" },
     attenuation: { parentId: "rcp_01", grantId: "grant_ntf_9911" },
@@ -90,15 +112,40 @@ const matrixJson = {
 };
 
 const egressRows = [
-  { ts: "2026-07-13T00:05:12.100Z", toolId: "zendesk.tickets.get", protocol: "openapi",
-    fqdn: "acme.zendesk.com", method: "GET", reqBytes: 412, respBytes: 5120, status: 200, receiptId: "rcp_01" },
-  { ts: "2026-07-13T00:07:44.180Z", toolId: "slack.chat.postMessage", protocol: "openapi",
-    fqdn: "slack.com", method: "POST", reqBytes: 640, respBytes: 220, status: 200, receiptId: "rcp_03" },
+  {
+    ts: "2026-07-13T00:05:12.100Z",
+    toolId: "zendesk.tickets.get",
+    protocol: "openapi",
+    fqdn: "acme.zendesk.com",
+    method: "GET",
+    reqBytes: 412,
+    respBytes: 5120,
+    status: 200,
+    receiptId: "rcp_01",
+  },
+  {
+    ts: "2026-07-13T00:07:44.180Z",
+    toolId: "slack.chat.postMessage",
+    protocol: "openapi",
+    fqdn: "slack.com",
+    method: "POST",
+    reqBytes: 640,
+    respBytes: 220,
+    status: 200,
+    receiptId: "rcp_03",
+  },
 ];
 
 const guardrailRows = [
-  { ts: "2026-07-13T00:06:03.010Z", kind: "deny-emitted", sessionId: "sess_demo_1",
-    agentId: "agent:triage", action: "deny", observed: 1, limit: 0 },
+  {
+    ts: "2026-07-13T00:06:03.010Z",
+    kind: "deny-emitted",
+    sessionId: "sess_demo_1",
+    agentId: "agent:triage",
+    action: "deny",
+    observed: 1,
+    limit: 0,
+  },
 ];
 
 // ---------- pack ----------
@@ -107,55 +154,83 @@ function sha256Hex(bytes) {
   return createHash("sha256").update(Buffer.from(bytes)).digest("hex");
 }
 function b64url(bytes) {
-  return Buffer.from(bytes).toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  return Buffer.from(bytes)
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 }
 
-const pubRaw = ed25519.getPublicKey(SEED);   // 32 raw bytes
+const pubRaw = ed25519.getPublicKey(SEED); // 32 raw bytes
 
 function toJsonl(rows) {
   return strToU8(rows.map((r) => JSON.stringify(r)).join("\n") + "\n");
 }
-function toBytes(str) { return strToU8(str); }
+function toBytes(str) {
+  return strToU8(str);
+}
 
 const filesRaw = {
   "receipts/chain-0001.jsonl": toJsonl(receipts),
   "policies/policy-0001.yaml": toBytes(policyYaml),
-  "policies/matrix.json":      toBytes(JSON.stringify(matrixJson, null, 2) + "\n"),
-  "egress/ledger.jsonl":       toJsonl(egressRows),
-  "guardrails/events.jsonl":   toJsonl(guardrailRows),
+  "policies/matrix.json": toBytes(JSON.stringify(matrixJson, null, 2) + "\n"),
+  "egress/ledger.jsonl": toJsonl(egressRows),
+  "guardrails/events.jsonl": toJsonl(guardrailRows),
 };
 
 const REDACTION = {
   receipts: [
-    "id", "prev", "ts",
-    "actor.id", "actor.role", "actor.kid",
-    "action.verb", "action.resource", "action.toolId", "action.protocol",
-    "decision", "denyReason",
-    "policy.hash", "policy.rulesetVersion",
-    "attenuation.parentId", "attenuation.grantId",
-    "metering.tokensIn", "metering.tokensOut", "metering.costUsd", "metering.durationMs",
+    "id",
+    "prev",
+    "ts",
+    "actor.id",
+    "actor.role",
+    "actor.kid",
+    "action.verb",
+    "action.resource",
+    "action.toolId",
+    "action.protocol",
+    "decision",
+    "denyReason",
+    "policy.hash",
+    "policy.rulesetVersion",
+    "attenuation.parentId",
+    "attenuation.grantId",
+    "metering.tokensIn",
+    "metering.tokensOut",
+    "metering.costUsd",
+    "metering.durationMs",
     "obligations",
     "sig",
   ],
   egress: [
-    "ts", "toolId", "protocol", "fqdn", "method",
-    "reqBytes", "respBytes", "status",
-    "receiptId", "unattributed",
+    "ts",
+    "toolId",
+    "protocol",
+    "fqdn",
+    "method",
+    "reqBytes",
+    "respBytes",
+    "status",
+    "receiptId",
+    "unattributed",
   ],
-  guardrails: [
-    "ts", "kind", "sessionId", "agentId",
-    "limit", "observed", "action",
-  ],
+  guardrails: ["ts", "kind", "sessionId", "agentId", "limit", "observed", "action"],
 };
 
 // Build entries + contents block, sorted for reproducibility.
 const entries = Object.entries(filesRaw)
-  .map(([path, data]) => ({ path, data, sha256: `sha256:${sha256Hex(data)}`, bytes: data.byteLength }))
+  .map(([path, data]) => ({
+    path,
+    data,
+    sha256: `sha256:${sha256Hex(data)}`,
+    bytes: data.byteLength,
+  }))
   .sort((a, b) => (a.path < b.path ? -1 : 1));
 
 const contents = { receipts: [], policies: [], egress: [], guardrails: [] };
 for (const e of entries) {
-  const meta = { path: e.path, sha256: e.sha256, bytes: e.bytes };
+  const meta = { path: e.path, sha256: e.sha256, bytes: e.bytes() };
   if (e.path.startsWith("receipts/")) contents.receipts.push(meta);
   else if (e.path.startsWith("policies/")) contents.policies.push(meta);
   else if (e.path.startsWith("egress/")) contents.egress.push(meta);
@@ -184,14 +259,17 @@ const manifest = {
 };
 
 const manifestBytes = strToU8(JSON.stringify(manifest, null, 2) + "\n");
-const sig = ed25519.sign(manifestBytes, SEED);      // 64-byte Ed25519 sig
+const sig = ed25519.sign(manifestBytes, SEED); // 64-byte Ed25519 sig
 const sigBytes = strToU8(b64url(sig) + "\n");
 
 // Sanity: cross-verify with node:crypto so both verifier backends agree.
 {
-  const spkiPrefix = Uint8Array.from([0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00]);
+  const spkiPrefix = Uint8Array.from([
+    0x30, 0x2a, 0x30, 0x05, 0x06, 0x03, 0x2b, 0x65, 0x70, 0x03, 0x21, 0x00,
+  ]);
   const spki = new Uint8Array(spkiPrefix.length + pubRaw.length);
-  spki.set(spkiPrefix, 0); spki.set(pubRaw, spkiPrefix.length);
+  spki.set(spkiPrefix, 0);
+  spki.set(pubRaw, spkiPrefix.length);
   const { createPublicKey, verify } = await import("node:crypto");
   const key = createPublicKey({ key: Buffer.from(spki), format: "der", type: "spki" });
   const ok = verify(null, Buffer.from(manifestBytes), key, Buffer.from(sig));
