@@ -8,7 +8,7 @@ consumer (auditor, insurer, SOC, legal) that has the `avar` binary.
 - Schema id: `aarmos.bundle/1`
 - Container: `.aarmos` = ZIP archive
 - Producer: `aarmos incident export` (in `@aarmos/cli`)
-- Consumer: `avar verify <bundle>` (in `@aarmos/avar-core`)
+- Consumer: `avar verify <bundle>` (the `avar` CLI / `@avar-standard/verify`)
 
 ## Layout inside a `.aarmos` file
 
